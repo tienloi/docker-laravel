@@ -22,7 +22,11 @@ WORKDIR /var/www
 # Copy existing application directory contents
 COPY ./src /var/www
 
-RUN chown -R www-data:www-data /var/www
+# Copy existing application directory permissions
+COPY --chown=www:www . /var/www
+
+# Change current user to www
+USER www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
